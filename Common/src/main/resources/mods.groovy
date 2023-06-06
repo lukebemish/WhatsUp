@@ -49,7 +49,7 @@ ModsDotGroovy.make {
             init = [
                     adapted {
                         adapter = 'groovyduvet'
-                        value = 'dev.lukebemish.whatsup.quilt.WhatsUpQuilt'
+                        value = 'dev.lukebemish.whatsup.impl.quilt.WhatsUpQuilt'
                     }
             ]
         }

@@ -1,4 +1,4 @@
-package dev.lukebemish.whatsup.data
+package dev.lukebemish.whatsup.impl.data
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject

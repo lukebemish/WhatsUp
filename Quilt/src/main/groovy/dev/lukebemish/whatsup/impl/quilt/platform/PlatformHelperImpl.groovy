@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup.forge.platform
+package dev.lukebemish.whatsup.impl.quilt.platform
 
 import com.google.auto.service.AutoService
-import dev.lukebemish.whatsup.services.PlatformHelper
+import dev.lukebemish.whatsup.impl.services.PlatformHelper
 import groovy.transform.CompileStatic
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.fml.loading.FMLLoader
-import net.minecraftforge.fml.loading.FMLPaths
+import io.github.lukebemish.groovyduvet.core.api.RemappingCustomizer
+import net.fabricmc.api.EnvType
 import org.codehaus.groovy.control.CompilerConfiguration
+import org.quiltmc.loader.api.QuiltLoader
+import org.quiltmc.loader.api.minecraft.MinecraftQuiltLoader
 
 import java.nio.file.Path
 
@@ -21,26 +22,26 @@ class PlatformHelperImpl implements PlatformHelper {
 
     @Override
     boolean isDevelopmentEnvironment() {
-        return !FMLLoader.production
+        return QuiltLoader.developmentEnvironment
     }
 
     @Override
     boolean isClient() {
-        return FMLLoader.dist == Dist.CLIENT
+        return MinecraftQuiltLoader.environmentType == EnvType.CLIENT
     }
 
     @Override
     Path getConfigFolder() {
-        return FMLPaths.CONFIGDIR.get()
+        return QuiltLoader.configDir
     }
 
     @Override
     Platform getPlatform() {
-        return Platform.FORGE
+        return Platform.QUILT
     }
 
     @Override
     void customize(CompilerConfiguration compilerConfiguration) {
-        // Does nothing
+        compilerConfiguration.addCompilationCustomizers(new RemappingCustomizer())
     }
 }

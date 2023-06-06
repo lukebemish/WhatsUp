@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup.quilt
+package dev.lukebemish.whatsup.impl.quilt
 
-import dev.lukebemish.whatsup.WhatsUpCommon
+import dev.lukebemish.whatsup.impl.WhatsUpCommon
 import groovy.transform.CompileStatic
 import net.minecraft.server.packs.PackType
 import org.quiltmc.loader.api.ModContainer

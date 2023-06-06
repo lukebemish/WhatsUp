@@ -1,7 +1,7 @@
-package dev.lukebemish.whatsup.data.predicates
+package dev.lukebemish.whatsup.impl.data.predicates
 
 import com.mojang.serialization.Codec
-import dev.lukebemish.whatsup.data.ResponsePredicate
+import dev.lukebemish.whatsup.api.ResponsePredicate
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor
@@ -11,7 +11,7 @@ import io.github.groovymc.cgl.api.transform.codec.CodecSerializable
 @CodecSerializable
 @CompileStatic
 @ToString
-class ContainsStringPredicate implements ResponsePredicate {
+class EqualsStringPredicate implements ResponsePredicate {
     final String target
 
     @Override
@@ -21,6 +21,6 @@ class ContainsStringPredicate implements ResponsePredicate {
 
     @Override
     boolean test(String s) {
-        return s.contains(target)
+        return s == target
     }
 }

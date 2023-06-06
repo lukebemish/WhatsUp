@@ -1,5 +1,6 @@
-package dev.lukebemish.whatsup.data
+package dev.lukebemish.whatsup.impl.data
 
+import dev.lukebemish.whatsup.api.ResponsePredicate
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor

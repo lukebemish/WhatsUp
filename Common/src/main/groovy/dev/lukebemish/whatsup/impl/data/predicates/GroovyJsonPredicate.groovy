@@ -1,9 +1,9 @@
-package dev.lukebemish.whatsup.data.predicates
+package dev.lukebemish.whatsup.impl.data.predicates
 
 import com.mojang.serialization.Codec
-import dev.lukebemish.whatsup.Constants
-import dev.lukebemish.whatsup.data.ResponsePredicate
-import dev.lukebemish.whatsup.services.Services
+import dev.lukebemish.whatsup.impl.Constants
+import dev.lukebemish.whatsup.api.ResponsePredicate
+import dev.lukebemish.whatsup.impl.services.Services
 import groovy.transform.CompileStatic
 import io.github.groovymc.cgl.api.transform.codec.CodecSerializable
 import org.codehaus.groovy.control.CompilerConfiguration

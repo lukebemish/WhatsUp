@@ -1,10 +1,10 @@
-package dev.lukebemish.whatsup
+package dev.lukebemish.whatsup.impl
 
 import com.google.gson.JsonElement
 import com.mojang.serialization.DataResult
 import com.mojang.serialization.Decoder
 import com.mojang.serialization.JsonOps
-import dev.lukebemish.whatsup.data.Listener
+import dev.lukebemish.whatsup.impl.data.Listener
 import groovy.transform.CompileStatic
 import groovy.transform.TupleConstructor
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap

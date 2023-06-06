@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup.services
+package dev.lukebemish.whatsup.impl.services
 
 import groovy.transform.AutoFinal
-import dev.lukebemish.whatsup.Constants
+import dev.lukebemish.whatsup.impl.Constants
 import groovy.transform.CompileStatic
 
 @AutoFinal

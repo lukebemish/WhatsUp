@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup
+package dev.lukebemish.whatsup.impl
 
 
 import com.google.gson.Gson

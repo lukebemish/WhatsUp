@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup
+package dev.lukebemish.whatsup.impl
 
-import dev.lukebemish.whatsup.data.Action
-import dev.lukebemish.whatsup.data.Listener
-import dev.lukebemish.whatsup.data.ResponsePredicate
-import dev.lukebemish.whatsup.data.predicates.*
+import dev.lukebemish.whatsup.api.WhatsUpAPI
+import dev.lukebemish.whatsup.impl.data.Action
+import dev.lukebemish.whatsup.impl.data.Listener
+import dev.lukebemish.whatsup.impl.data.predicates.*
 import groovy.transform.CompileStatic
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.core.registries.Registries
@@ -25,12 +25,12 @@ final class WhatsUpCommon {
     private WhatsUpCommon() {}
 
     static void init() {
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "equals_string")] = EqualsStringPredicate.$CODEC
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "equals_json")] = EqualsJsonPredicate.$CODEC
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "contains_string")] = ContainsStringPredicate.$CODEC
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "contains_json_children")] = ContainsJsonChildrenPredicate.$CODEC
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "groovy_json")] = GroovyJsonPredicate.$CODEC
-        ResponsePredicate.CODECS[new ResourceLocation(Constants.MOD_ID, "groovy_string")] = GroovyStringPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "equals_string")] = EqualsStringPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "equals_json")] = EqualsJsonPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "contains_string")] = ContainsStringPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "contains_json_children")] = ContainsJsonChildrenPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_json")] = GroovyJsonPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_string")] = GroovyStringPredicate.$CODEC
     }
 
     static final Deque<LevelConsumer> ACTIONS = new ConcurrentLinkedDeque<>()
@@ -40,8 +40,10 @@ final class WhatsUpCommon {
             ACTIONS.removeFirst().action(server)
         }
         int tick = server.tickCount
+        if (tick % 60 !== 0)
+            return
         for (WhatsUpListener.Listeners listeners : WhatsUpListener.LISTENERS) {
-            if (tick % listeners.frequency == 0) {
+            if (tick % listeners.frequency === 0) {
                 for (WhatsUpListener.ListenerData data : listeners.listeners) {
                     Listener listener = data.listener
                     URL url = new URL(listener.endpoint)

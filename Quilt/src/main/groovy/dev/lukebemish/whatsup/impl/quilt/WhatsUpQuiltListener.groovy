@@ -1,6 +1,6 @@
-package dev.lukebemish.whatsup.quilt
+package dev.lukebemish.whatsup.impl.quilt
 
-import dev.lukebemish.whatsup.WhatsUpListener
+import dev.lukebemish.whatsup.impl.WhatsUpListener
 import net.minecraft.resources.ResourceLocation
 import org.quiltmc.qsl.resource.loader.api.reloader.IdentifiableResourceReloader
 

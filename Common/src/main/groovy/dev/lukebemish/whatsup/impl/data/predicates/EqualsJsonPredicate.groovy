@@ -1,10 +1,10 @@
-package dev.lukebemish.whatsup.data.predicates
+package dev.lukebemish.whatsup.impl.data.predicates
 
 import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
-import dev.lukebemish.whatsup.Constants
-import dev.lukebemish.whatsup.data.JsonObjectCodec
-import dev.lukebemish.whatsup.data.ResponsePredicate
+import dev.lukebemish.whatsup.impl.Constants
+import dev.lukebemish.whatsup.impl.data.JsonObjectCodec
+import dev.lukebemish.whatsup.api.ResponsePredicate
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor

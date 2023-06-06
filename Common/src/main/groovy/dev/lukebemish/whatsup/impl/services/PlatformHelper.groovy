@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup.services
+package dev.lukebemish.whatsup.impl.services
 
 import groovy.transform.CompileStatic
 import org.codehaus.groovy.control.CompilerConfiguration

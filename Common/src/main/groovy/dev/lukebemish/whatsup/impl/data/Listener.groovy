@@ -1,4 +1,4 @@
-package dev.lukebemish.whatsup.data
+package dev.lukebemish.whatsup.impl.data
 
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
