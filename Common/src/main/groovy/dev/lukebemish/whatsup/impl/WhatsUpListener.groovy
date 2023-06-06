@@ -44,7 +44,7 @@ class WhatsUpListener extends SimpleJsonResourceReloadListener {
             ListenerData[] data = new ListenerData[listeners.size()]
             for (int j = 0; j < listeners.size(); j++)
                 data[j] = listeners.get(j)
-            LISTENERS[i] = new Listeners(frequency*60*20, data)
+            LISTENERS[i] = new Listeners(frequency*Constants.FREQUENCY_CONVERSION, data)
             i++
         }
         Constants.LOGGER.info("WhatsUp loaded ${LISTENERS.length} listeners!")

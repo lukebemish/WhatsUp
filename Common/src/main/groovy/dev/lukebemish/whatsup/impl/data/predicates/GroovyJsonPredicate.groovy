@@ -37,7 +37,9 @@ class GroovyJsonPredicate implements ResponsePredicate {
             Object object = Constants.JSON_SLURPER.parseText(s)
             if (object instanceof Map)
                 return predicate.test(object)
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Constants.LOGGER.warn "Failed to test ${s} against ${groovy}", e
+        }
         return false
     }
 }

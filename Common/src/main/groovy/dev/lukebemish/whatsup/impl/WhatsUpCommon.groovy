@@ -40,7 +40,7 @@ final class WhatsUpCommon {
             ACTIONS.removeFirst().action(server)
         }
         int tick = server.tickCount
-        if (tick % 60 !== 0)
+        if (tick % Constants.FREQUENCY_CONVERSION !== 0)
             return
         for (WhatsUpListener.Listeners listeners : WhatsUpListener.LISTENERS) {
             if (tick % listeners.frequency === 0) {

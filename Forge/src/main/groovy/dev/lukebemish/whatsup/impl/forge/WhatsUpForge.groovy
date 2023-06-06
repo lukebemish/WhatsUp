@@ -20,7 +20,7 @@ class WhatsUpForge {
     WhatsUpForge() {
         WhatsUpCommon.init()
         forgeBus.addListener(ServerTickEvent) { event ->
-            if (event.@phase != TickEvent.Phase.START)
+            if (event.@phase !== TickEvent.Phase.START)
                 return
             WhatsUpCommon.onTickServer(event.server)
         }
