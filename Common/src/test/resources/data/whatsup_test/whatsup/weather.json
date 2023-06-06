@@ -1,0 +1,27 @@
+{
+  "endpoint": "https://api.open-meteo.com/v1/forecast?latitude=51.34&longitude=12.37&current_weather=true",
+  "frequency": 2,
+  "actions": [
+    {
+      "predicate": {
+        "type": "whatsup:groovy_json",
+        "groovy": "[0, 1, 2, 3].contains(it.current_weather?.weathercode)"
+      },
+      "function": "whatsup_test:clear"
+    },
+    {
+      "predicate": {
+        "type": "whatsup:groovy_json",
+        "groovy": "[95, 96, 99].contains(it.current_weather?.weathercode)"
+      },
+      "function": "whatsup_test:thunder"
+    },
+    {
+      "predicate": {
+        "type": "whatsup:groovy_json",
+        "groovy": "![95, 96, 99].contains(it.current_weather?.weathercode) && ![0, 1, 2, 3].contains(it.current_weather?.weathercode)"
+      },
+      "function": "whatsup_test:rain"
+    }
+  ]
+}

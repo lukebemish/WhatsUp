@@ -1,0 +1,127 @@
+plugins {
+    id 'idea'
+    alias libs.plugins.cursegradle
+    alias libs.plugins.minotaur
+}
+
+apply plugin: libs.plugins.quilt.loom.get().pluginId
+
+archivesBaseName = "${mod_id}-${libs.versions.minecraft.get()}-quilt"
+
+sourceSets {
+    testmod {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("Quilt Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+        server {
+            server()
+            setConfigName("Quilt Server")
+            ideConfigGenerated(true)
+            runDir("run-server")
+        }
+    }
+    runs.each {
+        it.source sourceSets.testmod
+        it.vmArgs '-Dnet.fabricmc.tinyremapper.knownindybsm=org/codehaus/groovy/vmplugin/v8/IndyInterface'
+    }
+}
+
+dependencies {
+    minecraft libs.minecraft
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
+    }
+
+    modImplementation libs.quilt.loader
+
+    modImplementation libs.qfapi
+
+    modImplementation(libs.cgl.quilt)
+
+    runtimeOnly(libs.groovyduvet.groovy)
+    modImplementation(libs.groovyduvet.all)
+
+    compileOnly(project(path: ":Common", configuration: "namedElements")) {
+        exclude group: 'org.quiltmc'
+    }
+    testmodImplementation sourceSets.main.output
+}
+
+compileGroovy {
+    source project(":Common").sourceSets.main.allGroovy
+}
+
+compileJava {
+    source project(":Common").sourceSets.main.allJava
+}
+
+processResources {
+    from project(':Common').sourceSets.main.resources
+    exclude 'mods.groovy'
+}
+
+processTestmodResources {
+    from project(':Common').sourceSets.test.resources
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = "${mod_id}-${libs.versions.minecraft.get()}-quilt"
+            version = project.version
+            from components.java
+        }
+    }
+}
+
+
+if (project.hasProperty("curseforge_key")) {
+    curseforge {
+        apiKey = project.curseforge_key
+        project {
+            id = '843930'
+            releaseType = "${project.release_type}"
+            addGameVersion libs.versions.minecraft.get()
+            addGameVersion 'Quilt'
+            mainArtifact(remapJar) {
+                displayName = "JsonWrangler [Quilt] v$project.version"
+            }
+            relations {
+                requiredDependency 'groovyduvet'
+                requiredDependency 'qsl'
+            }
+        }
+        options {
+            forgeGradleIntegration = true
+        }
+    }
+}
+
+if (project.hasProperty("modrinth_key")) {
+    modrinth {
+        token = project.modrinth_key
+        projectId = 'XodEFO40'
+        versionNumber = "$project.version"
+        versionType = "${project.release_type}"
+        detectLoaders = false
+        uploadFile = remapJar
+        gameVersions = [libs.versions.minecraft.get()]
+        loaders = ['quilt']
+        dependencies {
+            required.project 'groovyduvet'
+            required.project 'qsl'
+        }
+    }
+}

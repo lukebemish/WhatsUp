@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "dev.lukebemish.whatsup",
+    "id": "whatsup_testmod",
+    "version": "1.0.0",
+    "metadata": {
+      "name": "WhatsUp Test Mod",
+      "license": "LGPL-3.0-or-later"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "load_type": "always"
+  }
+}
