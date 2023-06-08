@@ -7,21 +7,21 @@
         "type": "whatsup:groovy_json",
         "groovy": "[0, 1, 2, 3].contains(it.current_weather?.weathercode)"
       },
-      "function": "whatsup_test:clear"
+      "function": "whatsup_example:clear"
     },
     {
       "predicate": {
         "type": "whatsup:groovy_json",
         "groovy": "[95, 96, 99].contains(it.current_weather?.weathercode)"
       },
-      "function": "whatsup_test:thunder"
+      "function": "whatsup_example:thunder"
     },
     {
       "predicate": {
         "type": "whatsup:groovy_json",
         "groovy": "![95, 96, 99].contains(it.current_weather?.weathercode) && ![0, 1, 2, 3].contains(it.current_weather?.weathercode)"
       },
-      "function": "whatsup_test:rain"
+      "function": "whatsup_example:rain"
     }
   ]
 }

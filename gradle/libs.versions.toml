@@ -10,6 +10,8 @@ cgl = "0.2.4"
 gml = "3.1.5"
 groovy = "4.0.10"
 
+scriptresources = "1.0.2"
+
 forge = "1.19.4-45.0.13"
 mixin = "0.8.5"
 
@@ -28,6 +30,10 @@ groovyduvet_groovy = { module = "io.github.lukebemish.groovyduvet:groovyduvet-gr
 cgl_common = { module = "io.github.groovymc.cgl:cgl-1.19.4", version.ref = "cgl" }
 cgl_forge = { module = "io.github.groovymc.cgl:cgl-1.19.4-forge", version.ref = "cgl" }
 cgl_quilt = { module = "io.github.groovymc.cgl:cgl-1.19.4-quilt", version.ref = "cgl" }
+
+scriptresources_common = { module = "dev.lukebemish.scriptresources:scriptresources-common-1.19.4", version.ref = "scriptresources" }
+scriptresources_quilt = { module = "dev.lukebemish.scriptresources:scriptresources-quilt-1.19.4", version.ref = "scriptresources" }
+scriptresources_forge = { module = "dev.lukebemish.scriptresources:scriptresources-forge-1.19.4", version.ref = "scriptresources" }
 
 gml = { module = "com.matyrobbrt.gml:gml", version.ref = "gml" }
 

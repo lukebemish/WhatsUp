@@ -36,6 +36,16 @@ subprojects {
         }
     }
 
+    tasks.register('genExampleDataPack', Zip) {
+        from project(':Common').sourceSets.test.resources
+        include '**/*'
+        archiveClassifier = 'example-datapack'
+    }
+
+    build {
+        dependsOn(genExampleDataPack)
+    }
+
     repositories {
         mavenCentral()
         maven {

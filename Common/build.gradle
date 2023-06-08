@@ -1,6 +1,8 @@
 apply plugin: libs.plugins.quilt.loom.get().pluginId
 
-archivesBaseName = "${mod_id}-${libs.versions.minecraft.get()}"
+base {
+    archivesName = "${mod_id}-common-${libs.versions.minecraft.get()}"
+}
 
 loom {
     runConfigs.configureEach {
@@ -24,6 +26,8 @@ dependencies {
     modCompileOnly libs.quilt.loader
 
     modCompileOnly libs.cgl.common
+
+    modCompileOnly libs.scriptresources.common
 
     compileOnly libs.groovy.json
 
@@ -55,10 +59,11 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = project.group
-            artifactId = "${mod_id}-${libs.versions.minecraft.get()}"
+            artifactId base.archivesName.get()
             version = project.version
             from components.java
             artifact groovydocJar
+            artifact genExampleDataPack
         }
     }
 }

@@ -5,6 +5,7 @@
 
 package dev.lukebemish.whatsup.impl
 
+
 import dev.lukebemish.whatsup.api.WhatsUpAPI
 import dev.lukebemish.whatsup.impl.data.Action
 import dev.lukebemish.whatsup.impl.data.Listener
@@ -31,6 +32,7 @@ final class WhatsUpCommon {
         WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "contains_json_children")] = ContainsJsonChildrenPredicate.$CODEC
         WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_json")] = GroovyJsonPredicate.$CODEC
         WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_string")] = GroovyStringPredicate.$CODEC
+        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_script")] = ScriptPredicate.$CODEC
     }
 
     static final Deque<LevelConsumer> ACTIONS = new ConcurrentLinkedDeque<>()
@@ -50,8 +52,9 @@ final class WhatsUpCommon {
                     Runnable runnable = {->
                         try {
                             String text = url.getText('UTF-8', readTimeout: listeners.frequency/20*1000)
-                            for (Action action : listener.actions) {
-                                if (action.predicate.test(text)) {
+                            for (Action outerAction : listener.actions) {
+                                if (outerAction.predicate.test(text)) {
+                                    final action = outerAction
                                     LevelConsumer consumer = { MinecraftServer s ->
                                         for (ResourceLocation key : action.levels) {
                                             var levelKey = ResourceKey.create(Registries.DIMENSION, key)

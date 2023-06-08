@@ -6,7 +6,9 @@ plugins {
     alias libs.plugins.minotaur
 }
 
-archivesBaseName = "${mod_id}-${libs.versions.minecraft.get()}-forge"
+base {
+    archivesName = "${mod_id}-forge-${libs.versions.minecraft.get()}"
+}
 
 minecraft {
     mappings channel: 'parchment', version: "${libs.versions.parchment.minecraft.get()}-${libs.versions.parchment.mappings.get()}-${libs.versions.minecraft.get()}"
@@ -81,6 +83,8 @@ dependencies {
         exclude module: 'transform'
     }
 
+    implementation(fg.deobf(libs.scriptresources.forge.get()))
+
     compileOnly project(path: ":Common", configuration: "namedElements")
     testCompileOnly project(path: ':Common', configuration: 'testOut')
 }
@@ -118,7 +122,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = project.group
-            artifactId = "${mod_id}-${libs.versions.minecraft.get()}-forge"
+            artifactId base.archivesName.get()
             version = project.version
             artifacts = [tasks.jarJar, sourcesJar]
         }
@@ -129,12 +133,12 @@ if (project.hasProperty("curseforge_key")) {
     curseforge {
         apiKey = project.curseforge_key
         project {
-            id = '843930'
+            id = 'TODO'
             releaseType = "${project.release_type}"
             addGameVersion libs.versions.minecraft.get()
             addGameVersion 'Forge'
             mainArtifact(tasks.jarJar) {
-                displayName = "JsonWrangler [Forge] v$project.version"
+                displayName = "WhatsUp [Forge] v$project.version"
             }
             relations {
                 requiredDependency 'gml'
@@ -149,11 +153,14 @@ if (project.hasProperty("curseforge_key")) {
 if (project.hasProperty("modrinth_key")) {
     modrinth {
         token = project.modrinth_key
-        projectId = 'XodEFO40'
+        projectId = 'TODO'
         versionNumber = "$project.version"
         versionType = "${project.release_type}"
         detectLoaders = false
         uploadFile = tasks.jarJar
+
+        additionalFiles = [genExampleDataPack]
+
         gameVersions = [libs.versions.minecraft.get()]
         loaders = ['forge']
         dependencies {

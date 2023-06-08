@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Luke Bemish and contributors
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ */
+
 package dev.lukebemish.whatsup.impl
 
 import com.google.gson.JsonElement
@@ -16,7 +21,7 @@ import net.minecraft.util.profiling.ProfilerFiller
 
 @CompileStatic
 class WhatsUpListener extends SimpleJsonResourceReloadListener {
-    public static final String DIRECTORY = "whatsup"
+    public static final String DIRECTORY = "whatsup/listeners"
     public static Listeners[] LISTENERS = new Listeners[] {}
 
     WhatsUpListener() {
