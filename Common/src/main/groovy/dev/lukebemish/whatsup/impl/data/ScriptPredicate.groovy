@@ -3,34 +3,28 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-package dev.lukebemish.whatsup.impl.data.predicates
+package dev.lukebemish.whatsup.impl.data
 
-import com.mojang.serialization.Codec
-import dev.lukebemish.scriptresources.api.ScriptResources
-import dev.lukebemish.whatsup.api.ResponsePredicate
+
 import dev.lukebemish.whatsup.impl.Constants
+import dev.lukebemish.whatsup.impl.WhatsUpCommon
 import groovy.transform.CompileStatic
 import groovy.transform.Memoized
 import groovy.transform.TupleConstructor
-import io.github.groovymc.cgl.api.transform.codec.CodecSerializable
 import net.minecraft.resources.ResourceLocation
 
 @TupleConstructor
 @CompileStatic
-@CodecSerializable
-class ScriptPredicate implements ResponsePredicate {
-    public static final ScriptResources.ScriptProvider SCRIPT_PROVIDER = ScriptResources.registerPrefix(new ResourceLocation(Constants.MOD_ID, "predicates"), ResponseData)
+class ScriptPredicate {
 
-    ResourceLocation script
+    final ResourceLocation script
 
-    @Override
-    Codec<? extends ResponsePredicate> getCodec() {
-        return $CODEC
-    }
-
-    @Override
     boolean test(String s) {
-        Closure closure = SCRIPT_PROVIDER.getResource(script)
+        Closure closure = WhatsUpCommon.SCRIPT_PROVIDER.getResource(script)
+        if (closure == null) {
+            Constants.LOGGER.warn "Failed to find script at ${script}"
+            return false
+        }
         try {
             ResponseData data = new ResponseData(s)
             return closure.call(data) as boolean

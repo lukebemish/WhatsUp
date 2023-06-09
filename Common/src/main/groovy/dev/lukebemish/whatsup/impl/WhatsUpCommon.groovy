@@ -5,11 +5,10 @@
 
 package dev.lukebemish.whatsup.impl
 
-
-import dev.lukebemish.whatsup.api.WhatsUpAPI
+import dev.lukebemish.scriptresources.api.ScriptResources
 import dev.lukebemish.whatsup.impl.data.Action
 import dev.lukebemish.whatsup.impl.data.Listener
-import dev.lukebemish.whatsup.impl.data.predicates.*
+import dev.lukebemish.whatsup.impl.data.ScriptPredicate
 import groovy.transform.CompileStatic
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.core.registries.Registries
@@ -23,16 +22,11 @@ import java.util.concurrent.ConcurrentLinkedDeque
 
 @CompileStatic
 final class WhatsUpCommon {
+    public static final ScriptResources.ScriptProvider SCRIPT_PROVIDER = ScriptResources.registerPrefix(new ResourceLocation(Constants.MOD_ID, "predicates"), ScriptPredicate.ResponseData)
+
     private WhatsUpCommon() {}
 
     static void init() {
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "equals_string")] = EqualsStringPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "equals_json")] = EqualsJsonPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "contains_string")] = ContainsStringPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "contains_json_children")] = ContainsJsonChildrenPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_json")] = GroovyJsonPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_string")] = GroovyStringPredicate.$CODEC
-        WhatsUpAPI.RESPONSE_PREDICATES[new ResourceLocation(Constants.MOD_ID, "groovy_script")] = ScriptPredicate.$CODEC
     }
 
     static final Deque<LevelConsumer> ACTIONS = new ConcurrentLinkedDeque<>()

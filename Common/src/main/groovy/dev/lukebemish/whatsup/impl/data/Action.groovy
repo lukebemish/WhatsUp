@@ -5,11 +5,12 @@
 
 package dev.lukebemish.whatsup.impl.data
 
-import dev.lukebemish.whatsup.api.ResponsePredicate
+
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor
 import io.github.groovymc.cgl.api.transform.codec.CodecSerializable
+import io.github.groovymc.cgl.api.transform.codec.WithCodec
 import net.minecraft.resources.ResourceLocation
 
 @TupleConstructor
@@ -18,6 +19,12 @@ import net.minecraft.resources.ResourceLocation
 @ToString
 class Action {
     final ResourceLocation function
-    final ResponsePredicate predicate
+    @WithCodec({ ->
+        ResourceLocation.CODEC.<ScriptPredicate>xmap(
+            { new ScriptPredicate(it) },
+            { it.script }
+        )
+    })
+    final ScriptPredicate predicate
     final List<ResourceLocation> levels = [new ResourceLocation("overworld")]
 }
