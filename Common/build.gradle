@@ -55,6 +55,16 @@ processResources {
     exclude 'mods.groovy'
 }
 
+tasks.register('genExampleDataPack', Zip) {
+    sourceSets.test.resources
+    include '**/*'
+    archiveClassifier = 'example-datapack'
+}
+
+build {
+    dependsOn(genExampleDataPack)
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

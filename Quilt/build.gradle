@@ -97,7 +97,7 @@ if (project.hasProperty("curseforge_key")) {
     curseforge {
         apiKey = project.curseforge_key
         project {
-            id = 'TODO'
+            id = '873765'
             releaseType = "${project.release_type}"
             addGameVersion libs.versions.minecraft.get()
             addGameVersion 'Quilt'
@@ -118,13 +118,11 @@ if (project.hasProperty("curseforge_key")) {
 if (project.hasProperty("modrinth_key")) {
     modrinth {
         token = project.modrinth_key
-        projectId = 'TODO'
+        projectId = '7t2kydgp'
         versionNumber = "$project.version"
         versionType = "${project.release_type}"
         detectLoaders = false
         uploadFile = remapJar
-
-        additionalFiles = [genExampleDataPack]
 
         gameVersions = [libs.versions.minecraft.get()]
         loaders = ['quilt']

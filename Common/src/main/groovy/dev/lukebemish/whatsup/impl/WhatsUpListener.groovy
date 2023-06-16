@@ -23,6 +23,7 @@ import net.minecraft.util.profiling.ProfilerFiller
 class WhatsUpListener extends SimpleJsonResourceReloadListener {
     public static final String DIRECTORY = "whatsup/listeners"
     public static Listeners[] LISTENERS = new Listeners[] {}
+    public static final Map<ResourceLocation, Listener> LISTENER_MAP = new HashMap<>()
 
     WhatsUpListener() {
         super(Constants.GSON, DIRECTORY)
@@ -30,6 +31,7 @@ class WhatsUpListener extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+        LISTENER_MAP.clear()
         Int2ObjectMap<List<ListenerData>> building = new Int2ObjectOpenHashMap<>()
         object.each {rl, json ->
             DataResult<Listener> result = ((Decoder<Listener>) Listener.$CODEC).parse(JsonOps.INSTANCE, json)
@@ -38,6 +40,7 @@ class WhatsUpListener extends SimpleJsonResourceReloadListener {
                 if (!building.containsKey(listener.frequency))
                     building[listener.frequency] = []
                 building[listener.frequency].add(new ListenerData(rl, listener))
+                LISTENER_MAP[rl] = listener
             } else {
                 DataResult.PartialResult<?> partial = result.error().get()
                 Constants.LOGGER.error("Failed to parse listener at {}: {}", rl, partial.message())

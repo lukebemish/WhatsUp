@@ -15,6 +15,12 @@ modsDotGroovy {
     platform 'multiloader'
 }
 
+tasks.register('printVersionName') {
+    doLast{
+        println "GRADLE_VERSION=(${project.version})"
+    }
+}
+
 subprojects {
     apply plugin: 'groovy'
     apply plugin: 'maven-publish'
@@ -35,16 +41,6 @@ subprojects {
                 details.useTarget libs.tinyremapper
             }
         }
-    }
-
-    tasks.register('genExampleDataPack', Zip) {
-        from project(':Common').sourceSets.test.resources
-        include '**/*'
-        archiveClassifier = 'example-datapack'
-    }
-
-    build {
-        dependsOn(genExampleDataPack)
     }
 
     repositories {

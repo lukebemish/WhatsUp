@@ -5,9 +5,9 @@
 
 package dev.lukebemish.whatsup.impl.data
 
-
 import dev.lukebemish.whatsup.impl.Constants
 import dev.lukebemish.whatsup.impl.WhatsUpCommon
+import groovy.json.JsonException
 import groovy.transform.CompileStatic
 import groovy.transform.Memoized
 import groovy.transform.TupleConstructor
@@ -41,9 +41,11 @@ class ScriptPredicate {
 
         @Memoized
         Map getJson() {
-            Object object = Constants.JSON_SLURPER.parseText(text)
-            if (object instanceof Map)
-                return object
+            try {
+                Object object = Constants.JSON_SLURPER.parseText(text)
+                if (object instanceof Map)
+                    return object
+            } catch (JsonException ignored) {}
             return null
         }
     }

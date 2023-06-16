@@ -22,5 +22,5 @@ class Constants {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME)
     public static final Gson GSON = new GsonBuilder().setLenient().setPrettyPrinting().create()
     public static final JsonSlurper JSON_SLURPER = new JsonSlurper()
-    public static final int FREQUENCY_CONVERSION = 60*20
+    public static final int FREQUENCY_CONVERSION = 20
 }

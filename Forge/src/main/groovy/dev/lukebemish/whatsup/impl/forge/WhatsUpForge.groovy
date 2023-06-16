@@ -14,6 +14,7 @@ import dev.lukebemish.whatsup.impl.WhatsUpListener
 import groovy.json.JsonSlurper
 import groovy.transform.CompileStatic
 import net.minecraftforge.event.AddReloadListenerEvent
+import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent
 
@@ -30,6 +31,9 @@ class WhatsUpForge {
         }
         forgeBus.addListener(AddReloadListenerEvent) { event ->
             event.addListener(new WhatsUpListener())
+        }
+        forgeBus.addListener(RegisterCommandsEvent) { event ->
+            WhatsUpCommon.registerCommand(event.dispatcher)
         }
     }
 
