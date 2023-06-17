@@ -55,14 +55,14 @@ processResources {
     exclude 'mods.groovy'
 }
 
-tasks.register('genExampleDataPack', Zip) {
-    sourceSets.test.resources
+tasks.register('bundleExampleDataPack', Zip) {
+    from sourceSets.test.resources
     include '**/*'
-    archiveClassifier = 'example-datapack'
+    archiveFileName = 'example-datapack.zip'
 }
 
 build {
-    dependsOn(genExampleDataPack)
+    dependsOn(tasks.bundleExampleDataPack)
 }
 
 publishing {
@@ -73,7 +73,6 @@ publishing {
             version = project.version
             from components.java
             artifact groovydocJar
-            artifact genExampleDataPack
         }
     }
 }
