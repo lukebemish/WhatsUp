@@ -45,6 +45,10 @@ ModsDotGroovy.make {
             quiltLoader {
                 versionRange = ">=${this.quiltLoaderVersion}"
             }
+
+            mod('scriptresources') {
+                versionRange = ">=${this.libs.versions.scriptresources}"
+            }
         }
 
         entrypoints {
