@@ -33,17 +33,12 @@ jobs:
               id: "tag_create"
               with:
                   tag: ${{ env.captured_version }}
-            - name: Create Release with Datapack
+            - name: Create Release
               uses: ncipollo/release-action@v1.12.0
               if: ${{ github.event.inputs.tagdatapack == 'true' }}
               with:
                   tag: ${{ env.captured_version }}
                   artifacts: Common/build/distributions/example-datapack.zip
-            - name: Create Release
-              uses: ncipollo/release-action@v1.12.0
-              if: ${{ github.event.inputs.tagdatapack != 'true' }}
-              with:
-                  tag: ${{ env.captured_version }}
             - uses: gradle/gradle-build-action@v2
               with:
                   arguments: curseforge modrinth
