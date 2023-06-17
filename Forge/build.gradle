@@ -85,6 +85,10 @@ dependencies {
 
     implementation(fg.deobf(libs.scriptresources.forge.get()))
 
+    jarJar(libs.scriptresources.forge.get()) {
+        jarJar.ranged(it, "[${libs.versions.scriptresources.get()},)")
+    }
+
     compileOnly project(path: ":Common", configuration: "namedElements")
     testCompileOnly project(path: ':Common', configuration: 'testOut')
 }
