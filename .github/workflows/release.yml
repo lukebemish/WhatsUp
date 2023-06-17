@@ -24,7 +24,7 @@ jobs:
                   cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/1.') }}
             - name: Capture Version
               run: |
-                  echo "captured_version=$(./gradlew printVersionName | grep -Po  '(?<=GRADLE_VERSION=\()(.*)(?=\)))' >> "$GITHUB_ENV"
+                  echo "captured_version=$(./gradlew printVersionName | grep -Po  '(?<=GRADLE_VERSION=\()(.*)(?=\))')" >> "$GITHUB_ENV"
               id: capture_version
             - name: Create Release with Datapack
               uses: ncipollo/release-action@v1.12.0
