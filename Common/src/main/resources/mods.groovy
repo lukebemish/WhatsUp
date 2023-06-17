@@ -15,7 +15,9 @@ ModsDotGroovy.make {
         displayName = this.buildProperties['mod_name']
         version = this.version
         group = this.group
-        intermediate_mappings = 'net.fabricmc:intermediary'
+        onQuilt {
+            intermediate_mappings = 'net.fabricmc:intermediary'
+        }
         displayUrl = 'https://github.com/lukebemish/WhatsUp'
 
         description = "Make API calls and modify the world based on the results"
