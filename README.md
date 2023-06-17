@@ -19,3 +19,5 @@ the predicates run in has access to the `context` variable, which has the follow
 * `json` - The a Map of the response parsed as JSON, or `null` if the response is not a JSON object
 
 An example datapack can be found in `Common/src/test/resources`, or the [the GitHub releases](https://github.com/lukebemish/whatsUp/releases)
+
+The mod also provides ths `/whatsup` command for easily testing datapacks; this can be used to run any listener immediately.
