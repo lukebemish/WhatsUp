@@ -148,6 +148,10 @@ if (System.getenv('CURSEFORGE_KEY')) {
             forgeGradleIntegration = true
         }
     }
+
+    tasks.curseforge {
+        dependsOn tasks.jarJar
+    }
 }
 
 if (System.getenv('MODRINTH_KEY')) {
@@ -164,5 +168,9 @@ if (System.getenv('MODRINTH_KEY')) {
         dependencies {
             required.project 'gml'
         }
+    }
+
+    tasks.modrinth {
+        dependsOn tasks.jarJar
     }
 }

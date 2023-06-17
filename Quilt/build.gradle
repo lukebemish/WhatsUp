@@ -93,9 +93,9 @@ publishing {
 }
 
 
-if (project.hasProperty("curseforge_key")) {
+if (System.getenv('CURSEFORGE_KEY')) {
     curseforge {
-        apiKey = project.curseforge_key
+        apiKey = System.getenv('CURSEFORGE_KEY')
         project {
             id = '873765'
             releaseType = "${project.release_type}"
@@ -113,11 +113,15 @@ if (project.hasProperty("curseforge_key")) {
             forgeGradleIntegration = true
         }
     }
+
+    tasks.curseforge {
+        dependsOn remapJar
+    }
 }
 
-if (project.hasProperty("modrinth_key")) {
+if (System.getenv('MODRINTH_KEY')) {
     modrinth {
-        token = project.modrinth_key
+        token = System.getenv('MODRINTH_KEY')
         projectId = '7t2kydgp'
         versionNumber = "$project.version"
         versionType = "${project.release_type}"
@@ -130,5 +134,9 @@ if (project.hasProperty("modrinth_key")) {
             required.project 'groovyduvet'
             required.project 'qsl'
         }
+    }
+
+    tasks.modrinth {
+        dependsOn remapJar
     }
 }
