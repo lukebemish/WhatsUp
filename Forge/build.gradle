@@ -156,7 +156,7 @@ if (System.getenv('CURSEFORGE_KEY')) {
 
 if (System.getenv('MODRINTH_KEY')) {
     modrinth {
-        token = System.getenv('CURSEFORGE_KEY')
+        token = System.getenv('MODRINTH_KEY')
         projectId = '7t2kydgp'
         versionNumber = "$project.version"
         versionType = "${project.release_type}"
