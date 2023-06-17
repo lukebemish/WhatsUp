@@ -18,4 +18,4 @@ the predicates run in has access to the `context` variable, which has the follow
 * `text` - The unprocessed response text
 * `json` - The a Map of the response parsed as JSON, or `null` if the response is not a JSON object
 
-An example datapack can be found in `Common/src/test/resources`, or in the additional files on Modrinth or Curseforge
+An example datapack can be found in `Common/src/test/resources`, or the [the GitHub releases](https://github.com/lukebemish/whatsUp/releases)
