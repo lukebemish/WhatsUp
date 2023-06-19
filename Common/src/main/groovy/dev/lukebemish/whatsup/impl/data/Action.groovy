@@ -27,4 +27,5 @@ class Action {
     })
     final ScriptPredicate predicate
     final List<ResourceLocation> levels = [new ResourceLocation("overworld")]
+    final List<ResourceLocation> then = []
 }

@@ -12,6 +12,7 @@ and take the following structure:
   * `predicate` - The resource location of a predicate to check against the endpoint's result
   * `function` - The resource location of a function to execute if the predicate passes
   * `levels` - (Optional; defaults to `["overworld"]`) A list of dimensions to run the provided function in
+  * `then` - (Optional) a list of locations of other listeners to chain after this listener
 
 Predicates are stored at `data/<namespace>/whatsup/predicates/<name>.groovy`, and are groovy scripts. The groovy environment
 the predicates run in has access to the `context` variable, which has the following properties:

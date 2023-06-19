@@ -46,13 +46,13 @@ final class WhatsUpCommon {
             if (tick % listeners.frequency === 0) {
                 for (WhatsUpListener.ListenerData data : listeners.listeners) {
                     Listener listener = data.listener
-                    runListener(listener, listeners.frequency * 50) // 50 = 1000 / 20
+                    runListener(listener, listeners.frequency * 50, data.location) // 50 = 1000 / 20
                 }
             }
         }
     }
 
-    private static void runListener(Listener listener, int timeout) {
+    private static void runListener(Listener listener, int timeout, ResourceLocation listenerLocation) {
         URL url = new URL(listener.endpoint)
         Runnable runnable = { ->
             try {
@@ -69,6 +69,13 @@ final class WhatsUpCommon {
                                     final CommandSourceStack commandSource = manager.getGameLoopSender()
                                         .withLevel(l).withPermission(4).withSuppressedOutput()
                                     manager.execute(it, commandSource)
+                                    action.then.each {
+                                        if (WhatsUpListener.LISTENER_MAP.containsKey(it)) {
+                                            runListener(WhatsUpListener.LISTENER_MAP.get(it), Math.max(10000, (int) timeout.intdiv(action.then.size())), it) // 10 second timeout
+                                        } else {
+                                            Constants.LOGGER.warn("Could not find listener ${it} requested by listener ${listenerLocation}")
+                                        }
+                                    }
                                     return
                                 }
                             }
@@ -95,7 +102,7 @@ final class WhatsUpCommon {
                     ResourceLocation location = ResourceLocationArgument.getId(it, 'listener')
                     Listener listener = WhatsUpListener.LISTENER_MAP.get(location)
                     if (listener !== null) {
-                        runListener(listener, 10000) // 10 second timeout
+                        runListener(listener, 10000, location) // 10 second timeout
                     }
                 }
             )
