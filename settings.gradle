@@ -40,7 +40,11 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'WhatsUp'
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.5.0'
+}
+
+rootProject.name = 'whatsup'
 
 include 'Common'
 include 'Quilt'

@@ -5,7 +5,7 @@
 
 package dev.lukebemish.whatsup.impl.forge
 
-import com.matyrobbrt.gml.GMod
+
 import cpw.mods.modlauncher.Launcher
 import cpw.mods.modlauncher.api.IModuleLayerManager
 import dev.lukebemish.whatsup.impl.Constants
@@ -17,6 +17,7 @@ import net.minecraftforge.event.AddReloadListenerEvent
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent
+import org.groovymc.gml.GMod
 
 @GMod(Constants.MOD_ID)
 @CompileStatic

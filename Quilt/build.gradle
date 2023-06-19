@@ -38,6 +38,12 @@ loom {
     }
 }
 
+configurations {
+    localImplementation
+    runtimeClasspath.extendsFrom localImplementation
+    compileOnly.extendsFrom localImplementation
+}
+
 dependencies {
     minecraft libs.minecraft
     mappings loom.layered() {
@@ -49,14 +55,10 @@ dependencies {
 
     modImplementation libs.qfapi
 
-    modImplementation(libs.cgl.quilt)
+    modImplementation libs.groovyduvet.all
+    localImplementation libs.groovyduvet.core
 
-    runtimeOnly(libs.groovyduvet.groovy)
-    modImplementation(libs.groovyduvet.all)
-
-    modImplementation(include(libs.scriptresources.quilt.get())) {
-        exclude group: 'io.github.lukebemish.groovyduvet'
-    }
+    modImplementation(include(libs.scriptresources.quilt.get()))
 
     compileOnly(project(path: ":Common", configuration: "namedElements")) {
         exclude group: 'org.quiltmc'
@@ -84,9 +86,7 @@ processTestmodResources {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = project.group
             artifactId base.archivesName.get()
-            version = project.version
             from components.java
         }
     }

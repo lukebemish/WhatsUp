@@ -74,14 +74,14 @@ jarJar.enable()
 dependencies {
     minecraft libs.forge
 
-    annotationProcessor "org.spongepowered:mixin:${libs.versions.mixin.get()}:processor"
+    annotationProcessor(variantOf(libs.mixin) { classifier 'processor' })
 
-    implementation fg.deobf(libs.cgl.forge.get())
-
-    compileOnly "com.matyrobbrt.gml:gml:${libs.versions.gml.get()}:all"
-    runtimeOnly(fg.deobf("com.matyrobbrt.gml:gml:${libs.versions.gml.get()}:all")) {
+    compileOnly(variantOf(libs.gml) { classifier 'all' })
+    runtimeOnly(fg.deobf(variantOf(libs.gml) { classifier 'all' }.get())) {
         exclude module: 'transform'
     }
+
+    compileOnly fg.deobf(libs.cgl.forge.get())
 
     implementation(fg.deobf(libs.scriptresources.forge.get()))
 
@@ -107,7 +107,7 @@ processResources {
 }
 
 jar {
-    classifier 'partial'
+    archiveClassifier = 'partial'
     finalizedBy('reobfJar')
 }
 
@@ -118,7 +118,7 @@ reobf {
 }
 
 tasks.jarJar {
-    classifier ''
+    archiveClassifier = ''
     finalizedBy tasks.reobfJarJar
 }
 

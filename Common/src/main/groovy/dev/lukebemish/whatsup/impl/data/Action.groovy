@@ -9,8 +9,8 @@ package dev.lukebemish.whatsup.impl.data
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor
-import io.github.groovymc.cgl.api.transform.codec.CodecSerializable
-import io.github.groovymc.cgl.api.transform.codec.WithCodec
+import org.groovymc.cgl.api.transform.codec.CodecSerializable
+import org.groovymc.cgl.api.transform.codec.WithCodec
 import net.minecraft.resources.ResourceLocation
 
 @TupleConstructor
