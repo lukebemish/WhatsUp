@@ -22,6 +22,6 @@ the predicates run in has access to the `context` variable, which has the follow
 * `storage` - Contains a property for every command data storage specified in the action; data storages can be queried and mutated.
 This context object is also available as the delegate of the script, so a leading `context.` to access these properties is optional.
 
-An example datapack can be found in `Common/src/test/resources`, or the [the GitHub releases](https://github.com/lukebemish/whatsUp/releases).
+An example datapack can be found on the [GitHub releases](https://github.com/lukebemish/whatsUp/releases).
 
 The mod also provides the `/whatsup` command for easily testing datapacks; this can be used to run any listener immediately.
