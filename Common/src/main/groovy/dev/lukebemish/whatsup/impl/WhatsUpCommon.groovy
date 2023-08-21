@@ -57,33 +57,37 @@ final class WhatsUpCommon {
         Runnable runnable = { ->
             try {
                 String text = url.getText('UTF-8', readTimeout: timeout)
-                for (Action outerAction : listener.actions) {
-                    if (outerAction.predicate.test(text)) {
-                        final action = outerAction
-                        LevelConsumer consumer = { MinecraftServer s ->
-                            for (ResourceLocation key : action.levels) {
-                                var levelKey = ResourceKey.create(Registries.DIMENSION, key)
-                                Level l = s.getLevel(levelKey)
-                                ServerFunctionManager manager = s.functions
-                                manager.get(action.function).ifPresent {
-                                    final CommandSourceStack commandSource = manager.getGameLoopSender()
-                                        .withLevel(l).withPermission(4).withSuppressedOutput()
-                                    manager.execute(it, commandSource)
-                                    action.then.each {
-                                        if (WhatsUpListener.LISTENER_MAP.containsKey(it)) {
-                                            runListener(WhatsUpListener.LISTENER_MAP.get(it), Math.max(10000, (int) timeout.intdiv(action.then.size())), it) // 10 second timeout
-                                        } else {
-                                            Constants.LOGGER.warn("Could not find listener ${it} requested by listener ${listenerLocation}")
+                LevelConsumer testActions = { MinecraftServer server ->
+                    for (Action outerAction : listener.actions) {
+                        if (outerAction.test(text, server.commandStorage)) {
+                            final action = outerAction
+                            LevelConsumer consumer = { MinecraftServer s ->
+                                for (ResourceLocation key : action.levels) {
+                                    var levelKey = ResourceKey.create(Registries.DIMENSION, key)
+                                    Level l = s.getLevel(levelKey)
+                                    ServerFunctionManager manager = s.functions
+                                    manager.get(action.function).ifPresent {
+                                        final CommandSourceStack commandSource = manager.getGameLoopSender()
+                                            .withLevel(l).withPermission(4).withSuppressedOutput()
+                                        manager.execute(it, commandSource)
+                                        action.then.each {
+                                            if (WhatsUpListener.LISTENER_MAP.containsKey(it)) {
+                                                runListener(WhatsUpListener.LISTENER_MAP.get(it), Math.max(10000, (int) timeout.intdiv(action.then.size())), it)
+                                                // 10 second timeout
+                                            } else {
+                                                Constants.LOGGER.warn("Could not find listener ${it} requested by listener ${listenerLocation}")
+                                            }
                                         }
+                                        return
                                     }
-                                    return
                                 }
+                                return
                             }
-                            return
+                            ACTIONS.add(consumer)
                         }
-                        ACTIONS.add(consumer)
                     }
                 }
+                ACTIONS.add(testActions)
             } catch (IOException e) {
                 Constants.LOGGER.warn("Issue reaching endpoint ${listener.endpoint}: $e")
             }
@@ -94,7 +98,7 @@ final class WhatsUpCommon {
 
     static void registerCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal(Constants.MOD_ID)
-            .requires { it.hasPermission(4) }
+            .requires { it.hasPermission(2) }
             .then(Commands.argument('listener', ResourceLocationArgument.id())
                 .suggests { ctx, builder ->
                     return SharedSuggestionProvider.suggestResource(WhatsUpListener.LISTENER_MAP.keySet().stream(), builder)

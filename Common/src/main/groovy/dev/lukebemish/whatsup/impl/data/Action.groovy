@@ -9,6 +9,7 @@ package dev.lukebemish.whatsup.impl.data
 import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor
+import net.minecraft.world.level.storage.CommandStorage
 import org.groovymc.cgl.api.transform.codec.CodecSerializable
 import org.groovymc.cgl.api.transform.codec.WithCodec
 import net.minecraft.resources.ResourceLocation
@@ -26,6 +27,11 @@ class Action {
         )
     })
     final ScriptPredicate predicate
+    final Map<String, ResourceLocation> storage = [:]
     final List<ResourceLocation> levels = [new ResourceLocation("overworld")]
     final List<ResourceLocation> then = []
+
+    boolean test(String s, CommandStorage storage) {
+        return predicate.test(s, storage, this.storage)
+    }
 }

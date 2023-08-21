@@ -4,15 +4,24 @@
   "actions": [
     {
       "predicate": "whatsup_example:clear",
-      "function": "whatsup_example:clear"
+      "function": "whatsup_example:clear",
+      "storage": {
+        "weatherType": "whatsup_example:weather"
+      }
     },
     {
       "predicate": "whatsup_example:thunder",
-      "function": "whatsup_example:thunder"
+      "function": "whatsup_example:thunder",
+      "storage": {
+        "weatherType": "whatsup_example:weather"
+      }
     },
     {
       "predicate": "whatsup_example:rain",
-      "function": "whatsup_example:rain"
+      "function": "whatsup_example:rain",
+      "storage": {
+        "weatherType": "whatsup_example:weather"
+      }
     }
   ]
 }

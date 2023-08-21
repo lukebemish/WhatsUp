@@ -3,4 +3,9 @@
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-return [95, 96, 99].contains(context.json.current_weather?.weathercode)
+if ([95, 96, 99].contains(json.current_weather?.weathercode)) {
+    storage.weatherType.type = 'thunder'
+    return true
+}
+
+return false
