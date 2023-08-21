@@ -17,9 +17,11 @@ and take the following structure:
 
 Predicates are stored at `data/<namespace>/whatsup/predicates/<name>.groovy`, and are groovy scripts. The groovy environment
 the predicates run in has access to the `context` variable, which has the following properties:
+
 * `text` - The unprocessed response text
 * `json` - The a Map of the response parsed as JSON, or `null` if the response is not a JSON object
 * `storage` - Contains a property for every command data storage specified in the action; data storages can be queried and mutated.
+* 
 This context object is also available as the delegate of the script, so a leading `context.` to access these properties is optional.
 
 An example datapack can be found on the [GitHub releases](https://github.com/lukebemish/whatsUp/releases).
